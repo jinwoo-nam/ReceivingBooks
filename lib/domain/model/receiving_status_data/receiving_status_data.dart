@@ -8,6 +8,7 @@ part 'receiving_status_data.g.dart';
 @freezed
 class ReceivingStatusData with _$ReceivingStatusData {
   factory ReceivingStatusData({
+    @Default(0) int row,
     @JsonKey(name: '수취인명') @Default('') String userName,
     @JsonKey(name: '연락처') @Default('') String phone,
     @JsonKey(name: '우편번호') @Default('') String postCode,

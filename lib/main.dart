@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:receiving_books/data/google_sheeet_api.dart';
+import 'package:provider/provider.dart';
+import 'package:receiving_books/di/provider_setup.dart';
 import 'package:receiving_books/presentation/home/home_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await GoogleSheetApi.init();
-
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: getProviders(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

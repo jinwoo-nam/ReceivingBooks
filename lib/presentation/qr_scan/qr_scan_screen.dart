@@ -54,7 +54,8 @@ class _QrScanScreenState extends State<QrScanScreen> {
                       await controller.pauseCamera();
                       result = scanData;
                       if (result!.code != null) {
-                        ///Navigate push 작성
+                        //print(result!.code);
+                        Navigator.pop(context, result!.code);
                       }
                     });
                   },
