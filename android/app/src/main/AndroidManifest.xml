@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.instapayReceivingBooks.receiving_books">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
         android:label="receiving_books"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

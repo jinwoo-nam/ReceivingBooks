@@ -25,6 +25,11 @@ class _QrScanScreenState extends State<QrScanScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     controller?.dispose();
     super.dispose();
@@ -48,8 +53,13 @@ class _QrScanScreenState extends State<QrScanScreen> {
               children: [
                 QRView(
                   key: qrKey,
-                  onQRViewCreated: (controller) {
+                  onQRViewCreated: (controller) async {
                     this.controller = controller;
+                    if (Platform.isAndroid) {
+                      await controller.pauseCamera();
+                      await controller.resumeCamera();
+                    }
+
                     controller.scannedDataStream.listen((scanData) async {
                       await controller.pauseCamera();
                       result = scanData;

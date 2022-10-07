@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _streamSubscription = viewModel.eventStream.listen((event) {
       event.when(
         showSnackBar: (message) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -66,7 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(builder: (context) => const QrScanScreen()),
           );
-          viewModel.onEvent(HomeEvents.searchIsbn(isbn));
+          print(isbn);
+          if (isbn != null) {
+            viewModel.onEvent(HomeEvents.searchIsbn(isbn));
+          }
         },
       ),
       appBar: AppBar(
@@ -190,24 +194,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context: context,
                                         builder: (context) => AlertDialog(
                                               title: const Text('입고 처리 변경'),
-                                              content: !state.receivingDoneSet.contains(e)
+                                              content: !state.receivingDoneSet
+                                                      .contains(e)
                                                   ? const Text('입고 처리 하시겠습니까?')
-                                                  : const Text('입고 해제 처리 하시겠습니까?'),
+                                                  : const Text(
+                                                      '입고 해제 처리 하시겠습니까?'),
                                               actions: [
                                                 TextButton(
                                                     onPressed: () {
                                                       viewModel.onEvent(
                                                           OnUpdateReceivingStatus(
                                                               e,
-                                                              !state.receivingDoneSet.contains(e)));
-                                                      Navigator.of(context).pop();
+                                                              !state
+                                                                  .receivingDoneSet
+                                                                  .contains(
+                                                                      e)));
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                     child: const Text('OK')),
                                                 TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
-                                                    child: const Text('Cancel')),
+                                                    child:
+                                                        const Text('Cancel')),
                                               ],
                                             ));
                                   },
@@ -237,7 +249,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       );
                     }).toList(),
-                    const SizedBox(height: 50,),
+                    const SizedBox(
+                      height: 50,
+                    ),
                   ],
                 ),
               ),

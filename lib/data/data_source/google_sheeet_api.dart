@@ -76,12 +76,12 @@ class GoogleSheetApi {
       final res = await _bookSheet!.values.map.row(element.row);
       var data = ReceivingStatusData.fromJson(res);
 
-      // var format = DateFormat.yMd();
-      // var epoch = DateTime(1899, 12, 30);
-      // epoch = epoch.add(Duration(days: int.parse(data.date)));
+      var format = DateFormat.yMd();
+      var epoch = DateTime(1899, 12, 30);
+      epoch = epoch.add(Duration(days: int.parse(data.date)));
       data = data.copyWith(
         row: element.row,
-        //date: format.format(epoch),
+        date: format.format(epoch),
       );
 
       resultList.add(data);
